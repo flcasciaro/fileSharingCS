@@ -62,14 +62,15 @@ def getFile(filename):
         if answer.split()[0] == "OK":
             filepath = scriptPath + "recv/" + filename
             networking.recvFile(s, filepath)
-
+        else:
+            print("Received: \"{}\" from server".format(answer))
         networking.closeConnection(s)
     except (socket.timeout, RuntimeError):
         networking.closeConnection(s)
         return None
 
     end = time.time()
-    
+
 
     print("File {} received in {} seconds".format(filename, math.floor(end-start)))
 
