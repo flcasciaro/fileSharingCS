@@ -294,6 +294,10 @@ def recvFile(sock, filepath):
 
     filesize = eval(myRecv(sock))
 
+    dirPath, __ = os.path.split(filepath)
+    if not os.path.exists(dirPath):
+        os.makedirs(dirPath)
+
     f = open(filepath, "wb")
     if filesize == 0:
         f.close()
