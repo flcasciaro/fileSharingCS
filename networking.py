@@ -22,6 +22,9 @@ TIMEOUT = 3.0
 # type of encoding used in order to map string to bytes
 ENCODING_TYPE = 'latin-1'
 
+# maximum amount of bytes transmitted for iteration
+PIECE_SIZE = 1024
+
 
 def getMyIP():
     """
@@ -264,7 +267,7 @@ def sendFile(sock, filepath):
 
         remaining = filesize - sent
 
-        toSend = 4096 if remaining > 4096 else remaining
+        toSend = PIECE_SIZE if remaining > PIECE_SIZE else remaining
         data = f.read(remaining)
 
         # send data until filesize bytes have been sent
@@ -312,7 +315,7 @@ def recvFile(sock, filepath):
 
         remaining = filesize - received
 
-        toRecv = 4096 if remaining > 4096 else remaining
+        toRecv = PIECE_SIZE if remaining > PIECE_SIZE else remaining
 
         pieces = list()
         bytesRec = 0
