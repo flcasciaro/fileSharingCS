@@ -69,6 +69,7 @@ def getFile(filename):
         return None
 
     end = time.time()
+    
 
     print("File {} received in {} seconds".format(filename, math.floor(end-start)))
 
