@@ -48,6 +48,8 @@ def getFile(filename):
 
     start = time.time()
 
+    print("File {} reception starts".format(filename))
+
     s = networking.createConnection(serverZTAddr)
     if s is None:
         return None
