@@ -253,7 +253,6 @@ def sendFile(sock, filepath):
         return
 
     mySend(sock, str(filesize))
-    print("Filesize sent")
 
     f = open(filepath, "rb")
 
@@ -267,15 +266,19 @@ def sendFile(sock, filepath):
     while sent <= filesize:
 
         remaining = filesize - sent
+        print("remaining: {} sent: {}".format(remaining, sent))
 
         toSend = PIECE_SIZE if remaining > PIECE_SIZE else remaining
+        print("toSend: ", toSend)
         data = f.read(remaining)
+        print("data: ", data)
 
         # send data until filesize bytes have been sent
         totalSent = 0
         while totalSent < toSend:
             try:
                 sent = sock.send(data[totalSent:])
+                print("sent: ", sent)
             except socket.timeout:
                 raise socket.timeout
             if sent == 0:
@@ -285,6 +288,7 @@ def sendFile(sock, filepath):
                 print(filesize)
                 raise RuntimeError("sock connection broken")
             totalSent = totalSent + sent
+            print("totalSent: ", totalSent)
 
         sent += toSend
 
