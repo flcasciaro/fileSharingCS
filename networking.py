@@ -278,6 +278,7 @@ def sendFile(sock, filepath):
             except socket.timeout:
                 raise socket.timeout
             if sent == 0:
+                print(totalSent, toSend)
                 raise RuntimeError("sock connection broken")
             totalSent = totalSent + sent
 
