@@ -253,6 +253,7 @@ def sendFile(sock, filepath):
         return
 
     mySend(sock, str(filesize))
+    print("Filesize sent")
 
     f = open(filepath, "rb")
 
@@ -278,7 +279,10 @@ def sendFile(sock, filepath):
             except socket.timeout:
                 raise socket.timeout
             if sent == 0:
+                print(remaining)
+                print(data)
                 print(totalSent, toSend)
+                print(filesize)
                 raise RuntimeError("sock connection broken")
             totalSent = totalSent + sent
 
